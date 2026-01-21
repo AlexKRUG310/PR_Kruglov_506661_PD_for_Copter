@@ -1,0 +1,3 @@
+# На win установи mujoco через conda 
+mujoco
+numpy
