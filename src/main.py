@@ -22,7 +22,6 @@ points =[
 
 current_point_idx = 0
 
-# Начальные ошибки
 prev_errors = {'h': 0, 'x': 0, 'y': 0}
 prev_time = time.time()
 
