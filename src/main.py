@@ -5,7 +5,7 @@ import time
 
 def pd_controller(target_point, data, prev_errors, dt, kp, kd, gravity_comp):
     """
-    ПД-регулятор для управления дроном к целевой точке.
+    ПД-регулятор для управления дроном.
     
     Args:
         target_point: [x, y, z] целевая точка
@@ -19,24 +19,24 @@ def pd_controller(target_point, data, prev_errors, dt, kp, kd, gravity_comp):
     Returns:
         tuple: (base_thrust, x_control, y_control, new_errors)
     """
-    # Высота
+    
     h_error_p = target_point[2] - data.qpos[2]
     h_error_d = (h_error_p - prev_errors['h']) / dt
     high_control = kp[0] * h_error_p + kd[0] * h_error_d
     
     base_thrust = gravity_comp + high_control
     
-    # X координата
+    
     x_error_p = target_point[0] - data.qpos[0]
     x_error_d = (x_error_p - prev_errors['x']) / dt
     x_control = kp[1] * x_error_p + kd[1] * x_error_d
     
-    # Y координата
+
     y_error_p = target_point[1] - data.qpos[1]
     y_error_d = (y_error_p - prev_errors['y']) / dt
     y_control = kp[2] * y_error_p + kd[2] * y_error_d
     
-    # Новые ошибки для следующего шага
+    
     new_errors = {
         'h': h_error_p,
         'x': x_error_p,
@@ -68,9 +68,9 @@ prev_time = time.time()
 
 with mujoco.viewer.launch_passive(model, data) as viewer:
     
-   viewer.cam.distance = 20.0      # расстояние до модели
-   viewer.cam.azimuth = 140        # азимут (горизонтальный угол)
-   viewer.cam.elevation = -20     # угол возвышения (вертикальный)
+   viewer.cam.distance = 20.0     
+   viewer.cam.azimuth = 140        
+   viewer.cam.elevation = -20     
    viewer.cam.lookat[:] = [-7, 0, 1.2]
     
    while viewer.is_running():
@@ -93,7 +93,6 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         if  distance < 0.5:  
            current_point_idx = (current_point_idx + 1) % len(points)
            print(f" Переход к точке {current_point_idx}")
-        
         
         mujoco.mj_step(model, data)
         viewer.sync()
