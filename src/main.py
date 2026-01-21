@@ -55,4 +55,4 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         
         mujoco.mj_step(model, data)
         viewer.sync()
-        time.sleep(0.001)
+        time.sleep(0.01)
