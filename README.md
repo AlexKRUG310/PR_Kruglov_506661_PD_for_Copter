@@ -7,4 +7,4 @@
 2. Запустить симулятор
     python src/main.py 
 ### Пример работы
-Demo.mp4
+![Демо GIF](Demo.gif)
